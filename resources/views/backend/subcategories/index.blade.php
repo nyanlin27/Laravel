@@ -3,7 +3,7 @@
 <main class="app-content">
     <div class="app-title">
       <div>
-        <h1><i class="fa fa-th-list"></i> Category List</h1>
+        <h1><i class="fa fa-th-list"></i> SubCategory List</h1>
         <p>Table to display analytical data effectively</p>
       </div>
       <ul class="app-breadcrumb breadcrumb side">
@@ -17,44 +17,39 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
-            <a href="{{ route('categories.create') }}" class="btn btn-success float-right my-2">Add New</a>
+            <a href="{{ route('subcategories.create') }}" class="btn btn-success float-right my-2">Add New</a>
             <div class="table-responsive">
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead class="table-dark">
                   <tr>
                     <th>No</th>
                     <th>Name</th>
-                    <th>Photo</th>
+                    <th>Category Name</th>
                     <th>Action</th>
 
                   </tr>
                 </thead>
                 <tbody>
                     @php $i = 1 @endphp
-                    @foreach($categories as $category)
+                    @foreach($subcategories as $subcategory)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td><img src="{{ $category->photo }}" width="150px" alt="category image"></td>
+                        <td>{{ $subcategory->name }}</td>
+                        <td>{{ $subcategory->category->name }}</td>
+
                         <td>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            {{-- <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-danger btn-sm">Delete</a> --}}
-                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete')" class="d-inline-block">
+                            <a href="{{ route('subcategories.edit', $subcategory->id) }}" class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ route('subcategories.edit', $subcategory->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete')" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" name="btnsubmit" class="btn btn-danger btn-sm" value="Delete">
                             </form>
-
                         </td>
                     </tr>
                     @endforeach
-
-
-
-
                 </tbody>
-              </table>
+            </table>
             </div>
           </div>
         </div>

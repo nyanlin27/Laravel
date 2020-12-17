@@ -21,3 +21,10 @@ Route::get('dashbord', 'BackendController@dashbord')->name('dashbordpage');
 
 
 Route::resource('categories', 'CategoryController');
+Route::resource('brands', 'BrandController');
+Route::resource('subcategories', 'SubcategoryController');
+Route::resource('items', 'ItemController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

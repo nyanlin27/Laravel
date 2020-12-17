@@ -3,23 +3,23 @@
 <main class="app-content">
     <div class="app-title">
       <div>
-        <h1><i class="fa fa-edit"></i> Form Category</h1>
-        <p>category forms</p>
+        <h1><i class="fa fa-edit"></i> Form Subcategory</h1>
+        <p>Subcategory forms</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         <li class="breadcrumb-item">Forms</li>
-        <li class="breadcrumb-item"><a href="#">Category Forms</a></li>
+        <li class="breadcrumb-item"><a href="#">Subcategory Forms</a></li>
       </ul>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="tile">
-            <a href="{{ route('categories.index') }}" class="btn btn-success float-right">Back</a>
+            <a href="{{ route('subcategories.index') }}" class="btn btn-success float-right">Back</a>
 
           <h3 class="tile-title">Register</h3>
           <div class="tile-body">
-            <form class="form-horizontal" method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
+            <form class="form-horizontal" method="POST" action="{{ route('subcategories.store') }}">
                 @csrf
               <div class="form-group row">
                 <label class="control-label col-md-3">Name</label>
@@ -32,12 +32,13 @@
               </div>
 
               <div class="form-group row">
-                <label class="control-label col-md-3">Photo</label>
+                <label class="control-label col-md-3" id="categoryID">Category Name</label>
                 <div class="col-md-8">
-                  <input class="@error('photo') is-invalid @enderror" type="file" name="photo">
-                  @error('photo')
-                  <div class="alert alert-danger">{{ $message }}</div>
-              @enderror
+                    <select id="categoryID" class="form-control" name="category_id">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                      </select>
                 </div>
               </div>
 

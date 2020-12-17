@@ -3,7 +3,7 @@
 <main class="app-content">
     <div class="app-title">
       <div>
-        <h1><i class="fa fa-th-list"></i> Category List</h1>
+        <h1><i class="fa fa-th-list"></i> Brand List</h1>
         <p>Table to display analytical data effectively</p>
       </div>
       <ul class="app-breadcrumb breadcrumb side">
@@ -17,7 +17,7 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
-            <a href="{{ route('categories.create') }}" class="btn btn-success float-right my-2">Add New</a>
+            <a href="{{ route('brands.create') }}" class="btn btn-success float-right my-2">Add New</a>
             <div class="table-responsive">
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead class="table-dark">
@@ -31,16 +31,15 @@
                 </thead>
                 <tbody>
                     @php $i = 1 @endphp
-                    @foreach($categories as $category)
+                    @foreach($brands as $brand)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td><img src="{{ $category->photo }}" width="150px" alt="category image"></td>
+                        <td>{{ $brand->name }}</td>
+                        <td><img src="{{ $brand->photo }}" width="150px" alt="brand image"></td>
                         <td>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            {{-- <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-danger btn-sm">Delete</a> --}}
-                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete')" class="d-inline-block">
+                            <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('brands.destroy', $brand->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete')" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" name="btnsubmit" class="btn btn-danger btn-sm" value="Delete">

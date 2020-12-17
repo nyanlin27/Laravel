@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Brand;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
-        return view('backend.categories.index', compact('categories'));
+        $brands = Brand::orderBy('id', 'desc')->get();
+        return view('backend.brands.index', compact('brands'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.categories.create');
+        return view('backend.brands.create');
     }
 
     /**
@@ -49,91 +49,83 @@ class CategoryController extends Controller
             // File Name Change
             $fileName = time() . '_' . $request->photo->getClientOriginalName();
             //categoryimg change
-            $filePath = $request->file('photo')->storeAs('categoryimg', $fileName, 'public');
+            $filePath = $request->file('photo')->storeAs('brandimg', $fileName, 'public');
             $path = '/storage/' . $filePath;
         }
         // Store Data
-        $category = new Category;
-        $category->name = $request->name;
-        $category->photo = $path;
-        $category->save();
+        $brand = new Brand;
+        $brand->name = $request->name;
+        $brand->photo = $path;
+        $brand->save();
 
         // redirect
-        return redirect()->route('categories.index');
+        return redirect()->route('brands.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Brand $brand)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Brand $brand)
     {
-        return view('backend.categories.edit', compact('category'));
+        return view('backend.brands.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Brand $brand)
     {
-        // dd($request); // var_dump();, die();
+        // var_dumb
+        // dd($request);
 
-        // validation
+        // Validation
         $request->validate([
-            'name' => 'required|min:5',
-            'photo' => 'sometimes|mimes:jpeg,jpg,png'
+            'name' => 'required|min:3',
+            'photo' => 'sometimes|mimes:png,jpg,jpeg'
         ]);
-
-        // upload
+        //  Upload
         if ($request->file()) {
-            // 624872374523_a.jpg
+            // File Name Change
             $fileName = time() . '_' . $request->photo->getClientOriginalName();
-
-            // categoryimg/624872374523_a.jpg
-            $filePath = $request->file('photo')->storeAs('categoryimg', $fileName, 'public');
-
+            //categoryimg change
+            $filePath = $request->file('photo')->storeAs('brandimg', $fileName, 'public');
             $path = '/storage/' . $filePath;
-
-
-
-
-            $category->photo = $path;
+            $brand->photo = $path;
         }
-
-        // update data
-        $category->name = $request->name;
-        $category->save();
+        // Store Data
+        $brand->name = $request->name;
+        $brand->save();
 
         // redirect
-        return redirect()->route('categories.index');
+        return redirect()->route('brands.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Brand $brand)
     {
-        $category->delete();
-        return redirect()->route('categories.index');
+        $brand->delete();
+        return redirect()->route('brands.index');
     }
 }
