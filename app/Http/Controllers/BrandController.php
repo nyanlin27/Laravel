@@ -108,6 +108,7 @@ class BrandController extends Controller
             $filePath = $request->file('photo')->storeAs('brandimg', $fileName, 'public');
             $path = '/storage/' . $filePath;
             $brand->photo = $path;
+
         }
         // Store Data
         $brand->name = $request->name;

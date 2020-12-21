@@ -13,18 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 // For Backend
-Route::get('dashbord', 'BackendController@dashbord')->name('dashbordpage');
+Route::get('/', 'FrontendController@index')->name('homepage');
+Route::get('shoppingcart', 'FrontendController@shoppingcart')->name('shoppingcartpage');
 
 
-Route::resource('categories', 'CategoryController');
-Route::resource('brands', 'BrandController');
-Route::resource('subcategories', 'SubcategoryController');
-Route::resource('items', 'ItemController');
-
-Auth::routes();
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('dashbord', 'BackendController@dashbord')->name('dashbordpage');
+    Route::resource('categories', 'CategoryController');
+    Route::resource('brands', 'BrandController');
+    Route::resource('subcategories', 'SubcategoryController');
+    Route::resource('items', 'ItemController');
+});
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
