@@ -52,7 +52,7 @@
                 <span class="d-xl-none d-lg-none d-md-inline d-sm-inline d-inline  p-1 navslidemenu">
                     <i class="icofont-navigation-menu"></i>
                 </span>
-                <img src="{{ asset('frontend_asset/../logo/logo_big.jpg') }}" class="img-fluid d-xl-inline d-lg-inline d-md-none d-sm-none d-none">
+                <img src="{{ asset('frontend_asset/logo/logo_big.jpg') }}" class="img-fluid d-xl-inline d-lg-inline d-md-none d-sm-none d-none">
 
                 <img src="{{ asset('frontend_asset/logo/logo_med.jpg') }}" class="img-fluid d-xl-none d-lg-none d-md-inline d-sm-none d-none" style="width: 100px">
 
@@ -122,23 +122,26 @@
 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Electronic Devices
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Electronic Devices
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
+                        @foreach($categories as $category)
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    {{ $category->name }}
+                                    <i class="icofont-rounded-right float-right"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <h6 class="dropdown-header">
+                                        {{ $category->name }}
+                                    </h6>
+                                    @foreach($category->subcategories as $subcategory)
+                                    <li><a class="dropdown-item" href="#">{{ $subcategory->name }}</a></li>
+                                    @endforeach
 
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
+                                </ul>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                        @endforeach
 
-                        <li class="dropdown-submenu">
+                        {{-- <li class="dropdown-submenu">
                             <a class="dropdown-item" href="javascript:void(0)">
                                 Woman Fashion
                                 <i class="icofont-rounded-right float-right"></i>
@@ -375,7 +378,7 @@
                                 <li><a class="dropdown-item" href="#">Submenu0</a></li>
 
                             </ul>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div>

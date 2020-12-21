@@ -26,16 +26,18 @@
 <div class="container mt-5 px-5">
     <!-- Category -->
     <div class="row">
+        @foreach($categories as $category)
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
             <div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-                <img src="{{ asset('frontend_asset/image/category/category_one.png') }}" class="card-img-top" alt="...">
+                <img src="{{$category->photo }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text font-weight-bold text-truncate"> Smart Home </p>
+                    <p class="card-text font-weight-bold text-truncate"> {{ $category->name }} </p>
                 </div>
             </div>
         </div>
+        @endforeach
 
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
+        {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
             <div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
                 <img src="{{ asset('frontend_asset/image/category/category_two.png') }}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -96,7 +98,7 @@
                     <p class="card-text font-weight-bold text-truncate"> Health Care </p>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="whitespace d-xl-block d-lg-block d-md-none d-sm-none d-none"></div>
@@ -978,59 +980,13 @@
 
     <!-- Brand Store Item -->
     <section class="customer-logos slider mt-5">
+        @foreach($brands as $brand)
         <div class="slide">
             <a href="">
-                <img src="image/brand/loacker_logo.jpg">
+                <img src="{{ $brand->photo }}">
             </a>
         </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/lockandlock_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/apple_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/giordano_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/saisai_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/brands_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/acer_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/bella_logo.png">
-            </a>
-        </div>
-
-        <div class="slide">
-            <a href="">
-                <img src="image/brand/ariel_logo.png">
-            </a>
-        </div>
+        @endforeach
     </section>
 
     <div class="whitespace d-xl-block d-lg-block d-md-none d-sm-none d-none"></div>

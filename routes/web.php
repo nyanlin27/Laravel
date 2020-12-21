@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 // For Backend
 Route::get('/', 'FrontendController@index')->name('homepage');
 Route::get('shoppingcart', 'FrontendController@shoppingcart')->name('shoppingcartpage');
+Route::get('subcategory', 'FrontendController@subcategory')->name('subcategorypage');
+
 
 
 Route::middleware(['role:admin'])->group(function () {
