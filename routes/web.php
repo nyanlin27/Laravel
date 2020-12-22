@@ -16,12 +16,17 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-// For Backend
+// For Frontend
 Route::get('/', 'FrontendController@index')->name('homepage');
 Route::get('shoppingcart', 'FrontendController@shoppingcart')->name('shoppingcartpage');
-Route::get('subcategory', 'FrontendController@subcategory')->name('subcategorypage');
+Route::get('itemdetail/{id}', 'FrontendController@itemdetail')->name('itemdetailpage');
+// Route::get('itemdetail', 'FrontendController@itemdetail')->name('itemdetailpage');
 
 
+
+
+
+//For Backend
 
 Route::middleware(['role:admin'])->group(function () {
     Route::get('dashbord', 'BackendController@dashbord')->name('dashbordpage');
@@ -30,6 +35,6 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('subcategories', 'SubcategoryController');
     Route::resource('items', 'ItemController');
 });
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

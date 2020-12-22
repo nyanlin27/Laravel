@@ -74,10 +74,40 @@
                             </div>
                         </div>
                     </div>
+                    {{-- class="col-lg-4 col-10" --}}
                     <div class="col-lg-4 col-10">
-                        <a href="" class="d-xl-block d-lg-block d-md-block d-none  text-decoration-none loginLink float-right"> Login | Sign-up </a>
+                         {{-- <a href="#"  class="d-xl-block d-lg-block d-md-block d-none  text-decoration-none loginLink float-right"> Login | Logout</a> --}}
+                         <ul class="navbar-nav ml-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
 
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
 
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -90,13 +120,13 @@
                     <i class="icofont-search"></i>
                 </div>
 
-                <a href="" class="text-decoration-none d-xl-inline d-lg-inline d-md-inline d-sm-none d-none shoppingcartLink">
+                <a href="{{ route('shoppingcartpage') }}" class="text-decoration-none d-xl-inline d-lg-inline d-md-inline d-sm-none d-none shoppingcartLink">
                     <i class="icofont-shopping-cart"></i>
                     <span class="badge badge-pill badge-light badge-notify cartNotistyle cartNoti"> 1 </span>
                     <span> 4,800 Ks </span>
                 </a>
 
-                <a href="" class="text-decoration-none d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block shoppingcartLink">
+                <a href="{{ route('shoppingcartpage') }}" class="text-decoration-none d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block shoppingcartLink">
                     <i class="icofont-shopping-cart"></i>
                     <span class="badge badge-pill badge-light badge-notify cartNotistyle cartNoti"> 1 </span>
                 </a>
@@ -119,267 +149,9 @@
                     <a class="nav-link text-decoration-none text-dark font-weight-bold d-block" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2"> Category </span>
                         <i class="icofont-rounded-down pt-2"></i>
-
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        @foreach($categories as $category)
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    {{ $category->name }}
-                                    <i class="icofont-rounded-right float-right"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <h6 class="dropdown-header">
-                                        {{ $category->name }}
-                                    </h6>
-                                    @foreach($category->subcategories as $subcategory)
-                                    <li><a class="dropdown-item" href="#">{{ $subcategory->name }}</a></li>
-                                    @endforeach
-
-                                </ul>
-                            </li>
-                            <div class="dropdown-divider"></div>
-                        @endforeach
-
-                        {{-- <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Woman Fashion
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Woman Fashion
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Man Fashion
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Man Fashion
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Beauty
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Beauty
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Toys
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Toys
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Pets
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Pets
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Sports
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Sports
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Health
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Health
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Smart Home
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Smart Home
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Furniture
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Furniture
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Travel
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Travel
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Kitchen
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Kitchen
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Book
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Book
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Stationery
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Stationery
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Home Decor
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Home Decor
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li>
-                        <div class="dropdown-divider"></div>
-
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                Baby Care
-                                <i class="icofont-rounded-right float-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">
-                                    Baby Care
-                                </h6>
-                                <li><a class="dropdown-item" href="#">Submenu</a></li>
-                                <li><a class="dropdown-item" href="#">Submenu0</a></li>
-
-                            </ul>
-                        </li> --}}
-
+                        <x-category-component></x-category-component>
                     </ul>
                 </div>
             </div>
@@ -641,6 +413,7 @@
     <script type="text/javascript" src="{{ asset('frontend_asset/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
     <script type="text/javascript" src="{{ asset('frontend_asset/js/custom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend_asset/js/custom1.js') }}"></script>
 
     <!-- Owl Carousel -->
     <script type="text/javascript" src="{{ asset('frontend_asset/js/owl.carousel.js') }}"></script>

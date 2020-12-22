@@ -37,4 +37,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //Check user role
+    protected function redirectTo()
+    {
+        $roles = auth()->user()->getRoleNames();
+        switch ($roles[0]){
+            case 'admin':
+                return 'dashbord';
+            break;
+            case 'customer':
+                return '/';
+        }
+    }
 }
